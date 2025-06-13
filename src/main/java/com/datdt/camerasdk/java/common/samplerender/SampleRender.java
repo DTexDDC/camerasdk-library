@@ -18,6 +18,9 @@ package com.datdt.camerasdk.java.common.samplerender;
 import android.content.res.AssetManager;
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
+import android.os.Build;
+import android.util.Log;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -33,13 +36,19 @@ public class SampleRender {
   /**
    * Constructs a SampleRender object and instantiates GLSurfaceView parameters.
    *
-   * @param glSurfaceView Android GLSurfaceView
+   * @param glSurfaceView Androi GLSurfaceView
    * @param renderer Renderer implementation to receive callbacks
    * @param assetManager AssetManager for loading Android resources
    */
   public SampleRender(GLSurfaceView glSurfaceView, Renderer renderer, AssetManager assetManager) {
     this.assetManager = assetManager;
-    glSurfaceView.setPreserveEGLContextOnPause(true);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+      try {
+        glSurfaceView.setPreserveEGLContextOnPause(true);
+      } catch (Exception e) {
+        Log.w("SampleRender", "Preserve EGL context not supported: " + e);
+      }
+    }
     glSurfaceView.setEGLContextClientVersion(3);
     glSurfaceView.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
     glSurfaceView.setRenderer(
