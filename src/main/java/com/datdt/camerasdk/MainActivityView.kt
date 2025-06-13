@@ -31,7 +31,7 @@ import com.datdt.camerasdk.java.common.samplerender.SampleRender
 class MainActivityView(val activity: MainActivity, renderer: AppRenderer) :
   DefaultLifecycleObserver {
 //  val root = View.inflate(activity, R.layout.activity_main, null)
-  val themedContext = ContextThemeWrapper(activity, androidx.appcompat.R.style.Theme_AppCompat)
+  val themedContext = ContextThemeWrapper(activity, R.style.CameraSDKTheme)
   val inflater = LayoutInflater.from(themedContext)
   val root = inflater.inflate(R.layout.activity_main, null)
   val surfaceView =

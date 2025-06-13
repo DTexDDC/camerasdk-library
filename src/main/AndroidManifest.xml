@@ -23,7 +23,7 @@
         <activity
             android:name="com.datdt.camerasdk.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            android:theme="@style/CameraSDKTheme">
         </activity>
 
     </application>
