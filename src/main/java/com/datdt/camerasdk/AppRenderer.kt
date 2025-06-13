@@ -275,8 +275,7 @@ class AppRenderer(val activity: MainActivity, modelType: ModelType) : DefaultLif
               showSnackbar(
                 "Both bay endpoints not identified" + "\n" + "Please Rescan"
               )
-            }
-            else {
+            } else {
               if (objx > bLeft && objx < bRight) {
                 obj.bay = b.id
                 Log.d("Shelf_Details", "Bay exists, ${bLeft}, ${bRight}")

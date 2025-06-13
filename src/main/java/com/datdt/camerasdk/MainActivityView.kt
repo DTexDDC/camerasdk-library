@@ -17,6 +17,8 @@
 package com.datdt.camerasdk
 
 import android.opengl.GLSurfaceView
+import android.view.ContextThemeWrapper
+import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.SwitchCompat
@@ -28,7 +30,10 @@ import com.datdt.camerasdk.java.common.samplerender.SampleRender
 /** Wraps [R.layout.activity_main] and controls lifecycle operations for [GLSurfaceView]. */
 class MainActivityView(val activity: MainActivity, renderer: AppRenderer) :
   DefaultLifecycleObserver {
-  val root = View.inflate(activity, R.layout.activity_main, null)
+//  val root = View.inflate(activity, R.layout.activity_main, null)
+  val themedContext = ContextThemeWrapper(activity, androidx.appcompat.R.style.Theme_AppCompat)
+  val inflater = LayoutInflater.from(themedContext)
+  val root = inflater.inflate(R.layout.activity_main, null)
   val surfaceView =
     root.findViewById<GLSurfaceView>(R.id.surfaceview).apply {
       SampleRender(this, renderer, activity.assets)
