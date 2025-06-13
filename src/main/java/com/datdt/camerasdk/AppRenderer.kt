@@ -844,11 +844,11 @@ class AppRenderer(val activity: MainActivity, modelType: ModelType) : DefaultLif
 
       // translate to the anchor’s world position
       val t = anchor.pose.translation
-      Matrix.translateM(modelMatrix, 0, t[0], t[1]+0.1f, t[2])
+      Matrix.translateM(modelMatrix, 0, t[0], t[1], t[2])
 
       // rotate so the object “faces” +Z in world space:
       // e.g. tilt 45° about the X axis, then spin 180° about Y:
-      Matrix.rotateM(modelMatrix, 0, 80f, 0f, 0f, 1f)  // pitch
+      Matrix.rotateM(modelMatrix, 0, 90f, 1f, 0f, 0f)  // pitch
       Matrix.rotateM(modelMatrix, 0, 0f, 0f, 1f, 0f) // yaw
 
 // 2) Scale that matrix in place:
