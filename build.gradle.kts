@@ -1,7 +1,7 @@
 import com.android.build.api.dsl.Packaging
 
 plugins {
-    `maven-publish`
+    id("maven-publish")
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
@@ -156,3 +156,17 @@ dependencies {
 //        }
 //    }
 //}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+
+                groupId = "com.github.DTexDDC"
+                artifactId = "camerasdk-library"
+                version = "1.0.1" // or the tag you're pushing to GitHub
+            }
+        }
+    }
+}
