@@ -41,6 +41,7 @@ class MainActivityView(val activity: MainActivity, renderer: AppRenderer) :
 //  val useCloudMlSwitch = root.findViewById<SwitchCompat>(R.id.useCloudMlSwitch)
   val scanButton = root.findViewById<AppCompatButton>(R.id.scanButton)
   val resetButton = root.findViewById<AppCompatButton>(R.id.clearButton)
+  val finishButton = root.findViewById<AppCompatButton>(R.id.finishbutton)
   val snackbarHelper =
     SnackbarHelper().apply {
       setParentView(root.findViewById(R.id.coordinatorLayout))

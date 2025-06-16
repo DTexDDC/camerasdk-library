@@ -167,7 +167,7 @@ class AppRenderer(val activity: MainActivity, modelType: ModelType) : DefaultLif
   var scanButtonWasPressed = false
   var lastAcquireTime: Long = 0
   var scanPressTime: Long = 0
-  var minInterval: Long = 3000
+  var minInterval: Long = 5000
   var overviewImage: String = ""
 
   val modelViewProjectionMatrix = FloatArray(16) // projection x view x model
@@ -317,6 +317,10 @@ class AppRenderer(val activity: MainActivity, modelType: ModelType) : DefaultLif
 //        "Google Cloud Vision isn't configured (see README). The Cloud ML switch will be disabled."
 //      )
 //    }
+    view.finishButton.setOnClickListener {
+      Log.d(TAG, "Finish button pressed")
+      DetectionManager.updateDetections(DetectionPayload(emptyList(), "end"))
+    }
 
     view.resetButton.setOnClickListener {
       Log.d(TAG, "Reset button pressed")
@@ -452,7 +456,7 @@ class AppRenderer(val activity: MainActivity, modelType: ModelType) : DefaultLif
   var bayResultsTemp: List<BayObject>? = null
 
   override fun onDrawFrame(render: SampleRender) {
-    Log.d(TAG, "This is what's in all objects: ${objectResultsAll}")
+//    Log.d(TAG, "This is what's in all objects: ${objectResultsAll}")
     val session = session ?: return
     session.setCameraTextureNames(intArrayOf(backgroundRenderer.cameraColorTexture.textureId))
 //    if (!hasSetTextureNames) {
@@ -593,10 +597,12 @@ class AppRenderer(val activity: MainActivity, modelType: ModelType) : DefaultLif
         val cameraRGB: Bitmap = createBitmap(cameraImage.width, cameraImage.height)
         rgbConverter.yuvToRgb(cameraImage, cameraRGB)
         if (SystemClock.uptimeMillis() <= scanPressTime+100) {
-          val stream = ByteArrayOutputStream()
-          cameraRGB.compress(Bitmap.CompressFormat.JPEG, 75, stream)
-          val cropCompressedArray = stream.toByteArray()
-          overviewImage = Base64.encodeToString(cropCompressedArray, Base64.NO_WRAP)
+          coroutineScope.launch(Dispatchers.IO) {
+            val stream = ByteArrayOutputStream()
+            cameraRGB.compress(Bitmap.CompressFormat.JPEG, 75, stream)
+            val cropCompressedArray = stream.toByteArray()
+            overviewImage = Base64.encodeToString(cropCompressedArray, Base64.NO_WRAP)
+          }
         }
         coroutineScope.launch(Dispatchers.IO) {
           val cameraId = session.cameraConfig.cameraId
