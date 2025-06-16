@@ -856,7 +856,7 @@ class AppRenderer(val activity: MainActivity, modelType: ModelType) : DefaultLif
 
       // rotate so the object “faces” +Z in world space:
       // e.g. tilt 45° about the X axis, then spin 180° about Y:
-      Matrix.rotateM(modelMatrix, 0, -90f, 1f, 0f, 0f)  // pitch
+      Matrix.rotateM(modelMatrix, 0, 90f, 1f, 0f, 0f)  // pitch
       Matrix.rotateM(modelMatrix, 0, 180f, 0f, 1f, 0f) // yaw
 
 // 2) Scale that matrix in place:
