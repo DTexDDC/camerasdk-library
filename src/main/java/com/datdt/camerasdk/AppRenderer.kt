@@ -68,6 +68,7 @@ import com.google.ar.core.LightEstimate
 import com.google.ar.core.Plane
 import com.google.ar.core.Point
 import com.google.ar.core.Trackable
+import kotlinx.coroutines.cancel
 import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
 import kotlin.math.sqrt
@@ -319,7 +320,9 @@ class AppRenderer(val activity: MainActivity, modelType: ModelType) : DefaultLif
 //    }
     view.finishButton.setOnClickListener {
       Log.d(TAG, "Finish button pressed")
+      coroutineScope.cancel()
       DetectionManager.updateDetections(DetectionPayload(emptyList(), "end"))
+      activity.finish()
     }
 
     view.resetButton.setOnClickListener {

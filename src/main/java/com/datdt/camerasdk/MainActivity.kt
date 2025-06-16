@@ -140,7 +140,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     // Configure the session, using Lighting Estimation, and Depth mode.
     fun configureSession(session: Session) {
         session.configure(
